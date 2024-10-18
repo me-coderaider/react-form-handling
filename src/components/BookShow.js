@@ -12,9 +12,16 @@ function BookShow({ book, onDelete, onEdit }) {
         setShowEdit(!showEdit);
     };
 
+    // WRONG OF CLOSING THE FORM ELEMENT IN BOOK-EDIT COMPONENT
+    const handleSubmit = () => {
+        setShowEdit(false);
+    };
+
     let content = <h3>{book.title}</h3>;
     if (showEdit) {
-        content = <BookEdit book={book} onEdit={onEdit} />;
+        content = (
+            <BookEdit book={book} onEdit={onEdit} onSubmit={handleSubmit} />
+        );
     }
 
     return (
