@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function BookEdit({ book, onEdit, onSubmit }) {
+function BookEdit({ book, onSubmit }) {
     const [title, setTitle] = useState(book.title);
 
     const handleChange = (event) => {
@@ -9,10 +9,7 @@ function BookEdit({ book, onEdit, onSubmit }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        onEdit(book.id, title);
-        // WRONG OF CLOSING THE FORM ELEMENT IN BOOK-EDIT COMPONENT
-        onSubmit();
+        onSubmit(book.id, title);
     };
 
     return (
