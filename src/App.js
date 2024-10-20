@@ -1,10 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+
 import BookCreate from "./components/BookCreate";
 import BookList from "./components/BookList";
 
 function App() {
     const [books, setBooks] = useState([]);
+
+    const fetchBooks = async () => {
+        const response = await axios.get("http://localhost:3001/books");
+
+        setBooks(response.data);
+    };
+
+    //CORRECT WAY ✅✅✅✅✅
+    useEffect(() => {
+        fetchBooks();
+    }, []);
+
+    //WRONG WAY ❌❌❌❌❌
+    // fetchBooks(); // THIS WILL LEAD TO infinite loop of re-rendering App component,
+    //thus resulting in too many network requests
 
     const createBook = async (title) => {
         const response = await axios.post("http://localhost:3001/books", {
