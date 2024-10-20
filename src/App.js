@@ -54,14 +54,30 @@ function App() {
         setBooks(updatedBooks);
     };
 
-    const editBookById = (id, newTitle) => {
+    const editBookById = async (id, newTitle) => {
+        const response = await axios.put(`http://localhost:3001/books/${id}`, {
+            title: newTitle,
+        });
+
+        // updating the all the properties of book record i.e complete book record
         const updatedBooks = books.map((book) => {
-            if (book.id === id) {
-                return { ...book, title: newTitle };
+            if (book.id == id) {
+                return { ...book, ...response.data };
             }
             return book;
         });
         setBooks(updatedBooks);
+
+        /*
+        // OLD code
+        const updatedBooks = books.map((book) => {
+            if (book.id === id) {
+                return { ...book, title: newTitle }; // it'll update only 1 property of the book record
+            }
+            return book;
+        });
+        setBooks(updatedBooks);
+        */
     };
     return (
         <div className="app">
