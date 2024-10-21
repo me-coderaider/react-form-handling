@@ -10,7 +10,7 @@ function App() {
     //CORRECT WAY ✅✅✅✅✅
     useEffect(() => {
         fetchBooks();
-    }, []);
+    }, [fetchBooks]);
 
     //WRONG WAY ❌❌❌❌❌
     // fetchBooks(); // THIS WILL LEAD TO infinite loop of re-rendering App component,

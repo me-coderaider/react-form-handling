@@ -1,15 +1,23 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useCallback } from "react";
 import axios from "axios";
 
 const BooksContext = createContext();
 
 function Provider({ children }) {
     const [books, setBooks] = useState([]);
+
+    const fetchBooks = useCallback(async () => {
+        const response = await axios.get("http://localhost:3001/books");
+
+        setBooks(response.data);
+    }, []);
+
+    /* // wrapping side  useCallback() hook
     const fetchBooks = async () => {
         const response = await axios.get("http://localhost:3001/books");
 
         setBooks(response.data);
-    };
+    }; */
 
     const createBook = async (title) => {
         const response = await axios.post("http://localhost:3001/books", {
@@ -52,7 +60,7 @@ function Provider({ children }) {
 
         // updating the all the properties of book record i.e complete book record
         const updatedBooks = books.map((book) => {
-            if (book.id == id) {
+            if (book.id === id) {
                 return { ...book, ...response.data };
             }
             return book;
