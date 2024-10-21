@@ -1,12 +1,14 @@
-import { useState, useContext } from "react";
-import BooksContext from "../context/books";
+import { useState } from "react";
+// import BooksContext from "../context/books";
+import useBooksContext from "../hooks/use-books-context";
 
 // Now, this BookCreate component won't be receiving any props now as it was receiving 'onCreate()' props
 // Now, it can just reach to the CONTEXT and use the requried STATE or HANDLER-FUNCTION
 function BookCreate() {
     const [title, setTitle] = useState("");
 
-    const { createBook } = useContext(BooksContext);
+    // const { createBook } = useContext(BooksContext);
+    const { createBook } = useBooksContext();
 
     const handleChange = (event) => {
         setTitle(event.target.value);
